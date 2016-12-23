@@ -31,11 +31,20 @@ img = pygame.image.load("snakehead.png")
 clock = pygame.time.Clock()
 
 block_size = 20
-FPS = 30
+FPS = 20
+
+direction = "right"
 
 def snake(block_size, snakelist):
-    
-    gameDisplay.blit(img, (snakelist[-1][0], snakelist[-1][1]))
+    if direction == "right":
+        head = pygame.transform.rotate(img, 270)
+    elif direction == "left":
+        head = pygame.transform.rotate(img, 90)
+    elif direction == "down":
+        head = pygame.transform.rotate(img, 180)
+    elif direction == "up":
+        head = img
+    gameDisplay.blit(head, (snakelist[-1][0], snakelist[-1][1]))
     
     #all up to negative first
     for XnY in snakelist[:-1]:
@@ -54,6 +63,7 @@ def message_to_screen(msg, color):
     gameDisplay.blit(textSurf, textRect)    
 
 def gameLoop():
+    global direction
     gameExit = False
     gameOver = False
 
@@ -61,7 +71,7 @@ def gameLoop():
     lead_x = display_width // 2
     lead_y = display_height // 2
     
-    lead_x_change = 0
+    lead_x_change = 10
     lead_y_change = 0
     
     snakeList = []
@@ -93,15 +103,19 @@ def gameLoop():
                 gameExit = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
+                    direction = "left"
                     lead_x_change = -block_size
                     lead_y_change = 0
                 elif event.key == pygame.K_RIGHT:
                     lead_x_change = block_size
+                    direction = "right"
                     lead_y_change = 0
                 elif event.key == pygame.K_UP:
+                    direction = "up"
                     lead_y_change = -block_size
                     lead_x_change = 0
                 elif event.key == pygame.K_DOWN:
+                    direction = "down"
                     lead_y_change = block_size
                     lead_x_change = 0
         
