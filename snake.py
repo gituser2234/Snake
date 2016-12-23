@@ -39,6 +39,16 @@ smallfont = pygame.font.SysFont("comicsansms", 25)
 medfont = pygame.font.SysFont("cosicsansms", 50)
 largefont = pygame.font.SysFont("comicsansms", 80)
 
+def game_intro():
+    intro = True
+    
+    while intro:
+        gameDisplay.fill(white)
+        message_to_screen("Welcome to Slither!", green, -100, "large")
+        message_to_screen("The objetive is to eat red apples.",
+                          black, -30)
+        pygame.display.update()
+        clock.tick(15)
 
 def snake(block_size, snakelist):
     if direction == "right":
@@ -160,23 +170,7 @@ def gameLoop():
         
         #after all draw actions for this frame:
         pygame.display.update() # < why display not gameDisplay ??
-
-#        if lead_x >= randAppleX and lead_x <= randAppleX + AppleThickness:
-#            if lead_y >= randAppleY and lead_y <= randAppleY + AppleThickness:
-#                randAppleX = round(random.randrange(0, display_width-block_size))#/10.0)*10.0
-#                randAppleY = round(random.randrange(0, display_height-block_size))#/10.0)*10.0
-#                snakeLength += 1  
-
-#        if(lead_x > randAppleX and lead_x < randAppleX + AppleThickness
-#or lead_x + block_size > randAppleX and lead_x + block_size < randAppleX + AppleThickness):
-#            if lead_y > randAppleY and lead_y < randAppleY + AppleThickness:
-#                randAppleX = round(random.randrange(0, display_width-block_size))#/10.0)*10.0
-#                randAppleY = round(random.randrange(0, display_height-block_size))#/10.0)*10.0
-#                snakeLength += 1 
-#            elif lead_y + block_size > randAppleY and lead_x + block_size < randAppleY + AppleThickness:
-#                randAppleX = round(random.randrange(0, display_width-block_size))#/10.0)*10.0
-#                randAppleY = round(random.randrange(0, display_height-block_size))#/10.0)*10.0
-#                snakeLength += 1  
+ 
         if myApple.colliderect(pygame.Rect((lead_x, lead_y, block_size, block_size))):
                 randAppleX = round(random.randrange(0, display_width-block_size))#/10.0)*10.0
                 randAppleY = round(random.randrange(0, display_height-block_size))#/10.0)*10.0
@@ -190,4 +184,5 @@ def gameLoop():
     pygame.quit()
     quit()
     
+game_intro()
 gameLoop()
