@@ -23,6 +23,9 @@ display_height = 600
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption("Slither")
 
+icon = pygame.image.load("apple.png")
+pygame.display.set_icon(icon)
+
 img = pygame.image.load("snakehead.png")
 appleimg = pygame.image.load("apple.png")
 #update entire if no args
@@ -30,6 +33,7 @@ appleimg = pygame.image.load("apple.png")
 
 clock = pygame.time.Clock()
 
+AppleThickness = 30
 block_size = 20
 FPS = 20
 
@@ -109,8 +113,8 @@ def gameLoop():
     snakeList = []
     snakeLength = 1
     
-    randAppleX = round(random.randrange(0, display_width-block_size))#/10.0)*10.0
-    randAppleY = round(random.randrange(0, display_height-block_size))#/10.0)*10.0
+    randAppleX = round(random.randrange(0, display_width-AppleThickness))#/10.0)*10.0
+    randAppleY = round(random.randrange(0, display_height-AppleThickness))#/10.0)*10.0
     
     while not gameExit:
         
@@ -160,8 +164,7 @@ def gameLoop():
         lead_y += lead_y_change
         
         gameDisplay.fill(white)
-        #ApleDraw
-        AppleThickness = 30
+        
         #myApple = pygame.draw.rect(gameDisplay, red, [randAppleX, randAppleY, AppleThickness, AppleThickness])
         myApple = pygame.Rect(randAppleX, randAppleY, AppleThickness, AppleThickness)
         gameDisplay.blit(appleimg, (randAppleX, randAppleY))
