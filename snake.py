@@ -23,6 +23,8 @@ display_height = 600
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption("Slither")
 
+img = pygame.image.load("snakehead.png")
+
 #update entire if no args
 #pygame.display.update()
 
@@ -32,7 +34,11 @@ block_size = 20
 FPS = 30
 
 def snake(block_size, snakelist):
-    for XnY in snakelist:
+    
+    gameDisplay.blit(img, (snakelist[-1][0], snakelist[-1][1]))
+    
+    #all up to negative first
+    for XnY in snakelist[:-1]:
         pygame.draw.rect(gameDisplay, green, (XnY[0], XnY[1], block_size, block_size))
 
 def text_objects(text, color):
