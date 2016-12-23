@@ -35,6 +35,11 @@ FPS = 20
 
 direction = "right"
 
+smallfont = pygame.font.SysFont("comicsansms", 25)
+medfont = pygame.font.SysFont("cosicsansms", 50)
+largefont = pygame.font.SysFont("comicsansms", 80)
+
+
 def snake(block_size, snakelist):
     if direction == "right":
         head = pygame.transform.rotate(img, 270)
@@ -50,13 +55,17 @@ def snake(block_size, snakelist):
     for XnY in snakelist[:-1]:
         pygame.draw.rect(gameDisplay, green, (XnY[0], XnY[1], block_size, block_size))
 
-def text_objects(text, color):
-    textSurface = font.render(text, True, color)
+def text_objects(text, color, size):
+    if size == "small":
+        textSurface = smallfont.render(text, True, color)
+    if size == "medium":
+        textSurface = medfont.render(text, True, color)
+    if size == "large":
+        textSurface = largefont.render(text, True, color)
     return textSurface, textSurface.get_rect()
 
-font = pygame.font.SysFont(None, 25)
-def message_to_screen(msg, color, y_displace=0):
-    textSurf, textRect = text_objects(msg, color)
+def message_to_screen(msg, color, y_displace=0, size="small"):
+    textSurf, textRect = text_objects(msg, color, size)
 #    screen_text = font.render(msg, True, color)
 #    gameDisplay.blit(screen_text, [display_width // 2, display_height // 2])
     textRect.center = (display_width // 2), (display_height // 2)+y_displace
@@ -84,8 +93,9 @@ def gameLoop():
         
         while gameOver == True:
             gameDisplay.fill(white)
-            message_to_screen("Game Over", red, -50)
-            message_to_screen("Press C to play again or Q to quit", black, 50)
+            message_to_screen("Game Over", red, -50, size="large")
+            message_to_screen("Press C to play again or Q to quit", 
+                              black, 50, size="medium")
             pygame.display.update()
             
             for event in pygame.event.get():
