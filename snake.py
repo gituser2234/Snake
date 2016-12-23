@@ -43,12 +43,17 @@ smallfont = pygame.font.SysFont("comicsansms", 25)
 medfont = pygame.font.SysFont("cosicsansms", 50)
 largefont = pygame.font.SysFont("comicsansms", 80)
 
+def score(score):
+    text = smallfont.render("Score: "+str(score), True, black)
+    gameDisplay.blit(text, (5, 5))
+
 def randAppleGen():
     randAppleX = round(random.randrange(0, display_width-AppleThickness))
     randAppleY = round(random.randrange(0, display_height-AppleThickness))
     
     return randAppleX, randAppleY
 
+    
 def game_intro():
     
     intro = True
@@ -191,6 +196,8 @@ def gameLoop():
                 gameOver = True
             
         snake(block_size, snakeList)
+        
+        score(snakeLength-1)
         
         #after all draw actions for this frame:
         pygame.display.update() # < why display not gameDisplay ??
