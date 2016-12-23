@@ -24,7 +24,7 @@ gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption("Slither")
 
 img = pygame.image.load("snakehead.png")
-
+appleimg = pygame.image.load("apple.png")
 #update entire if no args
 #pygame.display.update()
 
@@ -43,6 +43,17 @@ def game_intro():
     intro = True
     
     while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_c:
+                    intro = False
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    quit()
+        
         gameDisplay.fill(white)
         message_to_screen("Welcome to Slither!", green, -100, "large")
         message_to_screen("The objetive is to eat red apples.",
@@ -83,6 +94,8 @@ def message_to_screen(msg, color, y_displace=0, size="small"):
 
 def gameLoop():
     global direction
+    direction = "right"
+    
     gameExit = False
     gameOver = False
 
@@ -149,8 +162,9 @@ def gameLoop():
         gameDisplay.fill(white)
         #ApleDraw
         AppleThickness = 30
-        myApple = pygame.draw.rect(gameDisplay, red, [randAppleX, randAppleY, AppleThickness, AppleThickness])
-    
+        #myApple = pygame.draw.rect(gameDisplay, red, [randAppleX, randAppleY, AppleThickness, AppleThickness])
+        myApple = pygame.Rect(randAppleX, randAppleY, AppleThickness, AppleThickness)
+        gameDisplay.blit(appleimg, (randAppleX, randAppleY))
         #gameDisplay.fill(red, rect=[200, 200, 50, 50])
         
         snakeHead = []
