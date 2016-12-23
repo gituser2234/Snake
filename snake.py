@@ -43,10 +43,18 @@ smallfont = pygame.font.SysFont("comicsansms", 25)
 medfont = pygame.font.SysFont("cosicsansms", 50)
 largefont = pygame.font.SysFont("comicsansms", 80)
 
+def randAppleGen():
+    randAppleX = round(random.randrange(0, display_width-AppleThickness))
+    randAppleY = round(random.randrange(0, display_height-AppleThickness))
+    
+    return randAppleX, randAppleY
+
 def game_intro():
+    
     intro = True
     
     while intro:
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -113,8 +121,7 @@ def gameLoop():
     snakeList = []
     snakeLength = 1
     
-    randAppleX = round(random.randrange(0, display_width-AppleThickness))#/10.0)*10.0
-    randAppleY = round(random.randrange(0, display_height-AppleThickness))#/10.0)*10.0
+    randAppleX, randAppleY = randAppleGen()
     
     while not gameExit:
         
@@ -189,8 +196,7 @@ def gameLoop():
         pygame.display.update() # < why display not gameDisplay ??
  
         if myApple.colliderect(pygame.Rect((lead_x, lead_y, block_size, block_size))):
-                randAppleX = round(random.randrange(0, display_width-block_size))#/10.0)*10.0
-                randAppleY = round(random.randrange(0, display_height-block_size))#/10.0)*10.0
+                randAppleX, randAppleY = randAppleGen()
                 snakeLength += 1 
             
         clock.tick(FPS)
